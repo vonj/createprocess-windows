@@ -3475,6 +3475,8 @@ int MainInternal(int argc, TCHAR **argv, TCHAR **envp)
 
 	// Execute CreateProcess().
 	BOOL result = ::CreateProcess(appname, commandline, &secattr, &secattr, (startinfo.dwFlags & STARTF_USESTDHANDLES ? TRUE : FALSE), createflags, (envp2 != NULL ? *envp2 : *envp), startdir, &startinfo, &procinfo);
+	SetProcessAffinityUpdateMode(procinfo.hProcess, 0);
+	SetProcessAffinityMask(procinfo.hProcess, 0x1);
 
 	FreeCommPipeStringArray(envpbuffer, envp2);
 
